@@ -1,0 +1,27 @@
+[gd_scene format=3 uid="uid://u1jkfaj7rxw0"]
+
+[ext_resource type="Script" uid="uid://55ca6vp7xgom" path="res://scripts/main.gd" id="1_0wfyh"]
+[ext_resource type="PackedScene" uid="uid://rd6a1xvsnfav" path="res://scenes/z_block.tscn" id="1_sugp2"]
+[ext_resource type="Shader" uid="uid://cb462pu80v22c" path="res://shader/grid.gdshader" id="3_jyhfs"]
+[ext_resource type="Texture2D" uid="uid://ck5ilxhqdl14t" path="res://icon.svg" id="4_tbgi4"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_tefeu"]
+shader = ExtResource("3_jyhfs")
+shader_parameter/line_width = 2.0
+shader_parameter/cell_size = 32.0
+shader_parameter/line_color = Color(0, 0, 0, 1)
+shader_parameter/grid_offset = Vector2(0, 0)
+
+[node name="Main" type="Node2D" unique_id=629815751 groups=["Block"]]
+script = ExtResource("1_0wfyh")
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=2101451099]
+
+[node name="ZBlock" parent="." unique_id=139971395 instance=ExtResource("1_sugp2")]
+position = Vector2(0, -256)
+
+[node name="Grid" type="Sprite2D" parent="." unique_id=1675357807]
+material = SubResource("ShaderMaterial_tefeu")
+position = Vector2(0, 0.5)
+scale = Vector2(9, 5.0703125)
+texture = ExtResource("4_tbgi4")

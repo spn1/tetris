@@ -1,0 +1,35 @@
+[gd_scene format=3 uid="uid://rd6a1xvsnfav"]
+
+[ext_resource type="Script" uid="uid://cxj36amxfmte3" path="res://scripts/block.gd" id="1_gn445"]
+[ext_resource type="Texture2D" uid="uid://dcpk8d535r8fk" path="res://sprites/blocks/tileset.png" id="2_k1xkb"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_em205"]
+texture = ExtResource("2_k1xkb")
+texture_region_size = Vector2i(32, 32)
+0:0/0 = 0
+1:0/0 = 0
+0:1/0 = 0
+1:1/0 = 0
+2:0/0 = 0
+3:0/0 = 0
+4:0/0 = 0
+2:1/0 = 0
+3:1/0 = 0
+4:1/0 = 0
+
+[sub_resource type="TileSet" id="TileSet_6rqa2"]
+tile_size = Vector2i(32, 32)
+sources/0 = SubResource("TileSetAtlasSource_em205")
+
+[node name="ZBlock" type="StaticBody2D" unique_id=139971395]
+script = ExtResource("1_gn445")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="." unique_id=955914228]
+visible = false
+position = Vector2(0, -128)
+polygon = PackedVector2Array(-192, -64, 64, -64, 64, 64, 192, 64, 192, 192, -64, 192, -64, 64, -192, 64)
+
+[node name="TileMapLayer" type="TileMapLayer" parent="." unique_id=36752610]
+tile_map_data = PackedByteArray(0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 255, 255, 0, 0, 2, 0, 0, 0, 0, 0, 255, 255, 255, 255, 0, 0, 2, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0)
+tile_set = SubResource("TileSet_6rqa2")
+rendering_quadrant_size = 32
