@@ -72,5 +72,5 @@ const PIECE_ATLAS_COORDS: Array[Vector2i] = [
 
 # DAS - Delayed Auto Shift - Short Delay before repeated movement from held-down input
 const DAS_DELAY: float = 0.167 # seconds before held movement auto-repeats
-const ARR_RATE: float = 0.1 # seconds between auto-repeat shifts
+const ARR_RATE: float = 0.033 # seconds between auto-repeat shifts
 const LOCK_DELAY: float = 0.5 # seconds before a grounded piece locks

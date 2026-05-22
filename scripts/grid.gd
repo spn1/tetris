@@ -7,7 +7,8 @@ extends Node2D
 
 var _drop_acc: float = 0.0 # time since last gravity tick
 var _lock_acc: float = -1.0 # -1 = not in lock delay
-var _arr_acc: float = 0 # input action repear accumulator
+var _arr_acc: float = 0 # input action repeat accumulator
+var _das_acc: float = 0 # repeat input delay accumulator
 
 # The board (rows added later) - 0 if empty, 1-7 = piece
 # `grid` is a list of rows. I.e. grid[x][y]
@@ -56,6 +57,9 @@ func _handle_input(delta) -> void:
 		move_horizontal(delta, -1)
 	elif Input.is_action_pressed("move_right"):
 		move_horizontal(delta, 1)
+	
+	if Input.is_action_just_released("move_left") or Input.is_action_just_released("move_right"):
+		_das_acc = 0
 
 
 func move_horizontal(delta: float, direction: int) -> void:
@@ -66,8 +70,15 @@ func move_horizontal(delta: float, direction: int) -> void:
 	)
 	
 	if valid_movement:
+		# Move piece once before preventing auto shift
+		if _das_acc == 0:
+			active_piece.grid_pos.x += direction
+
 		_arr_acc += delta
-		if _arr_acc >= Constants.ARR_RATE:
+		_das_acc += delta
+		
+		# If over DAS & ARR rates
+		if _das_acc >= Constants.DAS_DELAY and _arr_acc >= Constants.ARR_RATE:
 			active_piece.grid_pos.x += direction
 			_arr_acc = 0
 
