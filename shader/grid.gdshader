@@ -1,4 +1,4 @@
-shader_type canvas_item;
+             shader_type canvas_item;
 
 // Uniforms
 uniform float line_width: hint_range(1.0, 10.0, 1.0) = 1.0;

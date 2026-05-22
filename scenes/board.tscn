@@ -1,0 +1,17 @@
+[gd_scene format=3 uid="uid://b5i7t1eytqicf"]
+
+[ext_resource type="Script" uid="uid://dxbb6xsjg4l1v" path="res://scripts/grid.gd" id="1_hs2ul"]
+[ext_resource type="TileSet" uid="uid://dq73g4sjony38" path="res://sprites/blocks/block_tile_set.tres" id="2_66b1s"]
+
+[node name="Board" type="Node2D" unique_id=1495923322]
+script = ExtResource("1_hs2ul")
+
+[node name="LockedCells" type="TileMapLayer" parent="." unique_id=850869220]
+tile_set = ExtResource("2_66b1s")
+
+[node name="ActivePieceTiles" type="TileMapLayer" parent="." unique_id=205079523]
+tile_set = ExtResource("2_66b1s")
+
+[node name="GhostTiles" type="TileMapLayer" parent="." unique_id=276736821]
+modulate = Color(1, 1, 1, 0.3)
+tile_set = ExtResource("2_66b1s")

@@ -63,4 +63,4 @@ hard_drop={
 [rendering]
 
 rendering_device/driver.windows="d3d12"
-environment/defaults/default_clear_color=Color(0.3019608, 0.3019608, 0.3019608, 1)
+environment/defaults/default_clear_color=Color(0.3397052, 0.48434827, 0.503965, 1)
