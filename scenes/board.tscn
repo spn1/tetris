@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://dxbb6xsjg4l1v" path="res://scripts/grid.gd" id="1_hs2ul"]
 [ext_resource type="TileSet" uid="uid://dq73g4sjony38" path="res://sprites/blocks/block_tile_set.tres" id="2_66b1s"]
+[ext_resource type="Script" uid="uid://cdsqtwd4jyeb4" path="res://scripts/input.gd" id="3_nglv8"]
 
 [node name="Board" type="Node2D" unique_id=1495923322]
 script = ExtResource("1_hs2ul")
@@ -15,3 +16,6 @@ tile_set = ExtResource("2_66b1s")
 [node name="GhostTiles" type="TileMapLayer" parent="." unique_id=276736821]
 modulate = Color(1, 1, 1, 0.3)
 tile_set = ExtResource("2_66b1s")
+
+[node name="InputHandler" type="Node" parent="." unique_id=1242463490]
+script = ExtResource("3_nglv8")

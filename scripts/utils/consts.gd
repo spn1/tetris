@@ -6,7 +6,7 @@ const BOARD_ROWS: int = 22 # 2 rows hidden at the top so pieces appear outside t
 const VISIBLE_ROWS: int = 20
 
 enum Piece { I = 0, O = 1, T = 2, S = 3, Z = 4, J = 5, L = 6 }
-enum Rotation { SPAWN = 0, SW = 1, FLIP = 2, CCW = 3 }
+enum Rotation { SPAWN = 0, CW = 1, FLIP = 2, CCW = 3 }
 
 const PIECES: Array = [
 	  #Piece.I  — 4×4 bounding box
