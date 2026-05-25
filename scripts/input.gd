@@ -21,6 +21,9 @@ func _process(delta) -> void:
 		soft_drop(delta)
 	elif Input.is_action_just_pressed("sonic_drop"):
 		sonic_drop()
+	
+	if Input.is_action_just_pressed("store_swap"):
+		store_swap()
 
 	if Input.is_action_just_released("move_left") or Input.is_action_just_released("move_right"):
 		_das_acc = 0
@@ -62,4 +65,4 @@ func rotate_right():
 	_board.try_rotate(1)
 
 func store_swap():
-	pass
+	_board.do_hold()

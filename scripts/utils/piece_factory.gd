@@ -24,7 +24,7 @@ static func new_bag() -> Array:
 	bag.shuffle()
 	return bag
 
-
+# Spawns a piece at the top of the grid
 static func spawn_piece(type: Constants.Piece) -> ActivePiece:
 	var bbox_w: int = _BBOX_WIDTHS[type]
 	var column: int = (Constants.BOARD_COLUMNS - bbox_w) / 2

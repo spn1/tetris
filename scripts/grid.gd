@@ -269,10 +269,13 @@ func drop_interval() -> float:
 # Queue Logic
 ### ===========================================
 func _refill_queue() -> void:
+	print("Refilling Queue")
 	while next_queue.size() < 5:
 		if _bag.is_empty():
 			_bag = PieceFactory.new_bag()
 		next_queue.append(_bag.pop_front())
+		
+	print("Emitting Queue Event")
 	queue_changed.emit(next_queue.duplicate())
 
 # Returns the next piece from the queue
@@ -296,17 +299,32 @@ func _spawn_next_piece() -> void:
 
 # Locks the active piece after landing
 func lock_active_piece() -> void:
-	print("Locking Active Piece - ", active_piece.piece_type)
 	for cell: Vector2i in active_piece.world_cells():
-		print("\t", cell)
 		if cell.y >= 0:
 			grid[cell.y][cell.x] = active_piece.piece_type + 1
 		var cleared := clear_lines()
 		_apply_line_clear(cleared)
 
 	_spawn_next_piece()
-	_log_grid()
 
+
+# Hold Piece
+func do_hold() -> void:
+	# Cant hold more than once per spawn
+	if hold_used:
+		return
+	
+	# No hold piece set (first hold of game)
+	if hold_piece == -1:
+		hold_piece = active_piece.piece_type
+		_spawn_next_piece()
+	else:
+		var new_hold_piece = active_piece.piece_type
+		active_piece = PieceFactory.spawn_piece(hold_piece)
+		hold_piece = new_hold_piece
+
+	hold_used = true
+	hold_changed.emit(hold_piece)
 
 ### ===========================================
 # Debug Logic
