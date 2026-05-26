@@ -18,7 +18,7 @@ script = ExtResource("1_tbgi4")
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=2101451099]
 position = Vector2(160, 384)
-zoom = Vector2(0.8, 0.8)
+zoom = Vector2(0.9, 0.9)
 
 [node name="GUI" parent="." unique_id=758672245 instance=ExtResource("4_tefeu")]
 

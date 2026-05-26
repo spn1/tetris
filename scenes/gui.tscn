@@ -17,6 +17,7 @@ grow_vertical = 2
 alignment = 1
 
 [node name="LeftPanel" type="VBoxContainer" parent="Container" unique_id=1886706972]
+custom_minimum_size = Vector2(0, 365)
 layout_mode = 2
 size_flags_vertical = 4
 
@@ -25,6 +26,7 @@ layout_mode = 2
 text = "HOLD"
 
 [node name="HoldPiece" type="Control" parent="Container/LeftPanel" unique_id=1926148958]
+custom_minimum_size = Vector2(0, 32)
 layout_mode = 2
 
 [node name="TileMapLayer" type="TileMapLayer" parent="Container/LeftPanel/HoldPiece" unique_id=1665980259]
@@ -41,7 +43,7 @@ size_flags_vertical = 4
 
 [node name="QueueLabel" type="Label" parent="Container/RightPanel" unique_id=969629837]
 layout_mode = 2
-text = "Next:"
+text = "NEXT"
 label_settings = SubResource("LabelSettings_efmwq")
 
 [node name="Queue" type="VBoxContainer" parent="Container/RightPanel" unique_id=291334349]
@@ -93,19 +95,17 @@ layout_mode = 2
 
 [node name="ScoreLabel" type="Label" parent="Container/RightPanel/GameInfo" unique_id=1480944051]
 layout_mode = 2
-text = "Score
-"
+text = "SCORE"
 label_settings = SubResource("LabelSettings_efmwq")
 
 [node name="Score" type="Label" parent="Container/RightPanel/GameInfo" unique_id=241420941]
 layout_mode = 2
-text = "0
-"
+text = "-"
 label_settings = SubResource("LabelSettings_efmwq")
 
 [node name="LevelLabel" type="Label" parent="Container/RightPanel/GameInfo" unique_id=1336675803]
 layout_mode = 2
-text = "Level"
+text = "LEVEL"
 label_settings = SubResource("LabelSettings_efmwq")
 
 [node name="Level" type="Label" parent="Container/RightPanel/GameInfo" unique_id=494556898]
@@ -114,9 +114,9 @@ text = "1"
 
 [node name="LinesLabel" type="Label" parent="Container/RightPanel/GameInfo" unique_id=1358173644]
 layout_mode = 2
-text = "Lines"
+text = "LINES"
 label_settings = SubResource("LabelSettings_efmwq")
 
 [node name="Lines" type="Label" parent="Container/RightPanel/GameInfo" unique_id=228027302]
 layout_mode = 2
-text = "0"
+text = "-"
