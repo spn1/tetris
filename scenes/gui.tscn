@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://ddymix77i3x3"]
 
 [ext_resource type="Script" uid="uid://c5fewv1rpekft" path="res://scripts/gui.gd" id="1_efmwq"]
+[ext_resource type="TileSet" uid="uid://dq73g4sjony38" path="res://sprites/blocks/block_tile_set.tres" id="2_mfius"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_efmwq"]
 
@@ -17,13 +18,18 @@ alignment = 1
 
 [node name="LeftPanel" type="VBoxContainer" parent="Container" unique_id=1886706972]
 layout_mode = 2
+size_flags_vertical = 4
 
 [node name="HoldLabel" type="Label" parent="Container/LeftPanel" unique_id=241823470]
 layout_mode = 2
 text = "HOLD"
 
-[node name="HoldPiece" type="Label" parent="Container/LeftPanel" unique_id=1308398421]
+[node name="HoldPiece" type="Control" parent="Container/LeftPanel" unique_id=1926148958]
 layout_mode = 2
+
+[node name="TileMapLayer" type="TileMapLayer" parent="Container/LeftPanel/HoldPiece" unique_id=1665980259]
+scale = Vector2(0.5, 0.5)
+tile_set = ExtResource("2_mfius")
 
 [node name="GridSpacer" type="Control" parent="Container" unique_id=1321417059]
 custom_minimum_size = Vector2(320, 0)
@@ -31,6 +37,7 @@ layout_mode = 2
 
 [node name="RightPanel" type="VBoxContainer" parent="Container" unique_id=961825998]
 layout_mode = 2
+size_flags_vertical = 4
 
 [node name="QueueLabel" type="Label" parent="Container/RightPanel" unique_id=969629837]
 layout_mode = 2
@@ -39,21 +46,47 @@ label_settings = SubResource("LabelSettings_efmwq")
 
 [node name="Queue" type="VBoxContainer" parent="Container/RightPanel" unique_id=291334349]
 layout_mode = 2
+alignment = 1
 
-[node name="QueuePiece1" type="Label" parent="Container/RightPanel/Queue" unique_id=1613711734]
+[node name="Control" type="Control" parent="Container/RightPanel/Queue" unique_id=718096440]
+custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
 
-[node name="QueuePiece2" type="Label" parent="Container/RightPanel/Queue" unique_id=406570806]
+[node name="TileMapLayer" type="TileMapLayer" parent="Container/RightPanel/Queue/Control" unique_id=1748919848]
+scale = Vector2(0.5, 0.5)
+tile_set = ExtResource("2_mfius")
+
+[node name="Control2" type="Control" parent="Container/RightPanel/Queue" unique_id=624694544]
+custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
 
-[node name="QueuePiece3" type="Label" parent="Container/RightPanel/Queue" unique_id=361670433]
+[node name="TileMapLayer" type="TileMapLayer" parent="Container/RightPanel/Queue/Control2" unique_id=772046922]
+scale = Vector2(0.5, 0.5)
+tile_set = ExtResource("2_mfius")
+
+[node name="Control3" type="Control" parent="Container/RightPanel/Queue" unique_id=816271667]
+custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
 
-[node name="QueuePiece4" type="Label" parent="Container/RightPanel/Queue" unique_id=2006129968]
+[node name="TileMapLayer" type="TileMapLayer" parent="Container/RightPanel/Queue/Control3" unique_id=1890592358]
+scale = Vector2(0.5, 0.5)
+tile_set = ExtResource("2_mfius")
+
+[node name="Control4" type="Control" parent="Container/RightPanel/Queue" unique_id=622064041]
+custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
 
-[node name="QueuePiece5" type="Label" parent="Container/RightPanel/Queue" unique_id=584515987]
+[node name="TileMapLayer" type="TileMapLayer" parent="Container/RightPanel/Queue/Control4" unique_id=1212821557]
+scale = Vector2(0.5, 0.5)
+tile_set = ExtResource("2_mfius")
+
+[node name="Control5" type="Control" parent="Container/RightPanel/Queue" unique_id=705904259]
+custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
+
+[node name="TileMapLayer" type="TileMapLayer" parent="Container/RightPanel/Queue/Control5" unique_id=833449488]
+scale = Vector2(0.5, 0.5)
+tile_set = ExtResource("2_mfius")
 
 [node name="GameInfo" type="VBoxContainer" parent="Container/RightPanel" unique_id=1100881804]
 layout_mode = 2
