@@ -8,6 +8,9 @@ const VISIBLE_ROWS: int = 20
 enum Piece { I = 0, O = 1, T = 2, S = 3, Z = 4, J = 5, L = 6 }
 enum Rotation { SPAWN = 0, CW = 1, FLIP = 2, CCW = 3 }
 
+### ==========================================
+# Piece tetraminos shapes
+### ==========================================
 const PIECES: Array = [
 	  #Piece.I  — 4×4 bounding box
 	 [
@@ -60,6 +63,56 @@ const PIECES: Array = [
 	 ],
 ]
 
+### ==========================================
+# Wallkicks
+# Key:
+# 	- Represents the from_rotation and to_rotation
+# Value:
+# 	- A list of offsets to check for validity after the rotation
+# 	- If none are valid, rotation is rejected
+### ==========================================
+var WALL_KICKS_JLSTZ: Dictionary = {
+	Rotation.SPAWN: { # SPAWN
+		Rotation.CW:  [Vector2i(0,0), Vector2i(-1,0), Vector2i(-1,-1), Vector2i(0,2),  Vector2i(-1,2)],  # SPAWN -> CW
+		Rotation.CCW:  [Vector2i(0,0), Vector2i(1,0),  Vector2i(1,1),   Vector2i(0,-2), Vector2i(1,-2)],  # SPAWN -> CCW
+	},
+	Rotation.CW: { # CW
+		Rotation.SPAWN:  [Vector2i(0,0), Vector2i(1,0),  Vector2i(1,-1),  Vector2i(0,2),  Vector2i(1,2)],   # CW -> SPAWN
+		Rotation.FLIP:  [Vector2i(0,0), Vector2i(1,0),  Vector2i(1,1),   Vector2i(0,-2), Vector2i(1,-2)],  # CW -> FLIP
+	},
+	Rotation.FLIP: { # FLIP
+		 Rotation.CW:  [Vector2i(0,0), Vector2i(-1,0), Vector2i(-1,1),  Vector2i(0,-2), Vector2i(-1,-2)], # FLIP -> CW
+		 Rotation.CCW: [Vector2i(0,0), Vector2i(1,0),  Vector2i(1,-1),  Vector2i(0,2),  Vector2i(1,2)],   # FLIP -> CCW
+		
+	},
+	Rotation.CCW: { # CCW
+		 Rotation.FLIP: [Vector2i(0,0), Vector2i(-1,0), Vector2i(-1,-1), Vector2i(0,2),  Vector2i(-1,2)],  # CCW -> FLIP
+		 Rotation.SPAWN: [Vector2i(0,0), Vector2i(-1,0), Vector2i(-1,1),  Vector2i(0,-2), Vector2i(-1,-2)], # CCW -> SPAWN
+	}
+}
+
+var WALL_KICKS_I: Dictionary = {
+	Rotation.SPAWN: { # SPAWN
+		Rotation.CW:  [Vector2i(0,0), Vector2i(-2,0), Vector2i(1,0),  Vector2i(-2,1),  Vector2i(1,-2)],  # SPAWN -> CW
+		Rotation.CCW:  [Vector2i(0,0), Vector2i(-1,0), Vector2i(2,0),  Vector2i(-1,-2), Vector2i(2,1)],   # SPAWN -> CCW
+	},
+	Rotation.CW: { # CW
+		Rotation.SPAWN:  [Vector2i(0,0), Vector2i(2,0),  Vector2i(-1,0), Vector2i(2,-1),  Vector2i(-1,2)],  # CW -> SPAWN
+		Rotation.FLIP:  [Vector2i(0,0), Vector2i(-1,0), Vector2i(2,0),  Vector2i(-1,-2), Vector2i(2,1)],   # CW -> FLIP
+	},
+	Rotation.FLIP: { # FLIP
+		 Rotation.CW:  [Vector2i(0,0), Vector2i(1,0),  Vector2i(-2,0), Vector2i(1,2),   Vector2i(-2,-1)], # FLIP -> CW
+		 Rotation.CCW: [Vector2i(0,0), Vector2i(2,0),  Vector2i(-1,0), Vector2i(2,-1),  Vector2i(-1,2)],  # FLIP -> CCW
+	},
+	Rotation.CCW: { # CCW
+		 Rotation.FLIP: [Vector2i(0,0), Vector2i(-2,0), Vector2i(1,0),  Vector2i(-2,1),  Vector2i(1,-2)],  # CCW -> FLIP
+		 Rotation.SPAWN: [Vector2i(0,0), Vector2i(1,0),  Vector2i(-2,0), Vector2i(1,2),   Vector2i(-2,-1)], # CCW -> SPAWN
+	}
+}
+
+### ==========================================
+# Piece Shape <-> TileMap Coordinate
+### ==========================================
 const PIECE_ATLAS_COORDS: Array[Vector2i] = [
 	Vector2i(5, 0), # I red
 	Vector2i(6, 0), # O yellow

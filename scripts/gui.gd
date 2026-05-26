@@ -28,7 +28,6 @@ func on_hold_piece_changed(_hold_piece: int) -> void:
 
 
 func on_queue_changed(_queue: Array):
-	print("Queue Changed: ", _queue)
 	var labels = queue.get_children()
 	for i in range(labels.size()):
 		var piece_type = _queue[i]

@@ -55,6 +55,7 @@ func move_horizontal(delta: float, direction: int) -> void:
 
 	if valid_movement:
 		active_piece.grid_pos.x += direction
+		_lock_acc = 0
 
 
 func soft_drop(delta: float) -> void:
@@ -115,21 +116,25 @@ func tick_gravity(delta: float) -> void:
 
 # 1 for clockwise, -1 for counter clockwise
 func try_rotate(direction: int) -> void:
-	var new_rotation = (active_piece.rotation + direction + 4) % 4
-	# active_piece.rotation = rotation_index
-	# var rotated_piece = Constants.Pieces[active_piece.piece_type][rotation_index]
-
-	var is_valid_rotation = is_valid_position(
-		active_piece.piece_type,
-		new_rotation,
-		active_piece.grid_pos
-	)
-
-	# TODO: Check Wallkicks
-
-	if is_valid_rotation:
-		active_piece.rotation = new_rotation
-		_lock_acc = -1
+	var new_rotation: Constants.Rotation = (active_piece.rotation + direction + 4) % 4
+	
+	var kicks: Array
+	if active_piece.piece_type == Constants.Piece.I:
+		kicks = Constants.WALL_KICKS_I[active_piece.rotation][new_rotation]
+	else:
+		kicks = Constants.WALL_KICKS_JLSTZ[active_piece.rotation][new_rotation]
+	
+	# Each kick has [0, 0] as the first offset
+	for kick in kicks:
+		if is_valid_position(
+			active_piece.piece_type,
+			new_rotation,
+			active_piece.grid_pos + kick
+		):
+			active_piece.grid_pos += kick
+			active_piece.rotation = new_rotation
+			_lock_acc = -1
+			return
 
 
 
@@ -252,7 +257,7 @@ func _apply_line_clear(cleared: int) -> void:
 	_back_to_back = (cleared == 4)
 	lines += cleared
 
-	var new_level := 1 + lines / 10
+	var new_level := 1 + lines / 2
 	if new_level != level:
 		level = new_level
 		level_changed.emit(level)
@@ -269,13 +274,11 @@ func drop_interval() -> float:
 # Queue Logic
 ### ===========================================
 func _refill_queue() -> void:
-	print("Refilling Queue")
 	while next_queue.size() < 5:
 		if _bag.is_empty():
 			_bag = PieceFactory.new_bag()
 		next_queue.append(_bag.pop_front())
-		
-	print("Emitting Queue Event")
+	
 	queue_changed.emit(next_queue.duplicate())
 
 # Returns the next piece from the queue
