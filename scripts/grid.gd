@@ -5,6 +5,7 @@ extends Node2D
 @onready var _active_tiles: TileMapLayer = $ActivePieceTiles
 @onready var _ghost_tiles: TileMapLayer = $GhostTiles
 
+var _drop_interval: float = 1
 var _drop_acc: float = 0.0 # time since last gravity tick
 var _lock_acc: float = -1.0 # -1 = not in lock delay
 
@@ -20,7 +21,7 @@ var hold_piece: int = -1 #  empty if -1
 var hold_used: bool = false
 
 var score: int = 0 # Total Score
-var level: int = 5
+var level: int = 1
 var lines: int = 0 # Amount of lines cleared
 var _back_to_back: bool = false # Was last clear a tetris?
 
@@ -32,10 +33,12 @@ signal queue_changed(queue: Array)
 signal hold_changed(hold_piece: int)
 signal game_over()
 
+
 func _ready() -> void:
 	_init_grid()
 	_refill_queue()
 	_spawn_next_piece()
+	level_changed.connect(_calculate_drop_interval)
 
 func _process(delta: float) -> void:
 	if active_piece == null:
@@ -110,7 +113,7 @@ func tick_gravity(delta: float) -> void:
 	else:
 		_lock_acc = -1.
 		_drop_acc += delta
-		if _drop_acc >= drop_interval():
+		if _drop_acc >= _drop_interval:
 			active_piece.grid_pos += Vector2i(0, 1)
 			_drop_acc = 0
 
@@ -267,10 +270,9 @@ func _apply_line_clear(cleared: int) -> void:
 
 
 # Calculate drop interval based on current level
-func drop_interval() -> float:
-	var interval = pow(0.8 - (level - 1) * 0.007, level - 1)
-	print("Interval: ", interval)
-	return interval
+func _calculate_drop_interval(level: int):
+	_drop_interval = pow(0.8 - (level - 1) * 0.007, level - 1)
+	print("Interval: ", _drop_interval)
 
 ### ===========================================
 # Queue Logic
