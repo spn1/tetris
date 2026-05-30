@@ -268,7 +268,9 @@ func _apply_line_clear(cleared: int) -> void:
 
 # Calculate drop interval based on current level
 func drop_interval() -> float:
-	return pow(0.8 - (level - 1) * 0.007, level - 1)
+	var interval = pow(0.8 - (level - 1) * 0.007, level - 1)
+	print("Interval: ", interval)
+	return interval
 
 ### ===========================================
 # Queue Logic
