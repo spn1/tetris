@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://bju01se85up41"
+path="res://.godot/imported/Type B.mp3-ddfecf86554ee006db62f52b385591ba.mp3str"
+
+[deps]
+
+source_file="res://assets/tetris-asset-pack/music/Type B.mp3"
+dest_files=["res://.godot/imported/Type B.mp3-ddfecf86554ee006db62f52b385591ba.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

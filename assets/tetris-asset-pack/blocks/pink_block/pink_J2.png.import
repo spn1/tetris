@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://3ml5oldv12c2"
-path="res://.godot/imported/blue_block.png-5f5849eccced5e82f22c3121209936d9.ctex"
+uid="uid://d04w6orjfve38"
+path="res://.godot/imported/pink_J2.png-93581ae51b1acb4b515e6029899920a3.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://sprites/blocks/blue_block.png"
-dest_files=["res://.godot/imported/blue_block.png-5f5849eccced5e82f22c3121209936d9.ctex"]
+source_file="res://assets/tetris-asset-pack/blocks/pink_block/pink_J2.png"
+dest_files=["res://.godot/imported/pink_J2.png-93581ae51b1acb4b515e6029899920a3.ctex"]
 
 [params]
 

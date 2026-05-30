@@ -16,107 +16,130 @@ grow_horizontal = 2
 grow_vertical = 2
 alignment = 1
 
-[node name="LeftPanel" type="VBoxContainer" parent="Container" unique_id=1886706972]
+[node name="MarginLeft" type="MarginContainer" parent="Container" unique_id=2123096891]
 custom_minimum_size = Vector2(0, 365)
 layout_mode = 2
 size_flags_vertical = 4
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_right = 8
 
-[node name="HoldLabel" type="Label" parent="Container/LeftPanel" unique_id=241823470]
+[node name="LeftPanel" type="VBoxContainer" parent="Container/MarginLeft" unique_id=1886706972]
+custom_minimum_size = Vector2(64, 400)
+layout_mode = 2
+size_flags_vertical = 4
+
+[node name="HoldLabel" type="Label" parent="Container/MarginLeft/LeftPanel" unique_id=241823470]
 layout_mode = 2
 text = "HOLD"
+horizontal_alignment = 1
 
-[node name="HoldPiece" type="Control" parent="Container/LeftPanel" unique_id=1926148958]
+[node name="HoldPiece" type="Control" parent="Container/MarginLeft/LeftPanel" unique_id=1926148958]
 custom_minimum_size = Vector2(0, 32)
 layout_mode = 2
 
-[node name="TileMapLayer" type="TileMapLayer" parent="Container/LeftPanel/HoldPiece" unique_id=1665980259]
+[node name="TileMapLayer" type="TileMapLayer" parent="Container/MarginLeft/LeftPanel/HoldPiece" unique_id=1665980259]
 scale = Vector2(0.5, 0.5)
 tile_set = ExtResource("2_mfius")
 
 [node name="GridSpacer" type="Control" parent="Container" unique_id=1321417059]
-custom_minimum_size = Vector2(320, 0)
+custom_minimum_size = Vector2(360, 0)
 layout_mode = 2
 
-[node name="RightPanel" type="VBoxContainer" parent="Container" unique_id=961825998]
+[node name="MarginRight" type="MarginContainer" parent="Container" unique_id=449589733]
 layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_right = 8
+
+[node name="RightPanel" type="VBoxContainer" parent="Container/MarginRight" unique_id=961825998]
+custom_minimum_size = Vector2(64, 400)
+layout_mode = 2
+size_flags_horizontal = 4
 size_flags_vertical = 4
 
-[node name="QueueLabel" type="Label" parent="Container/RightPanel" unique_id=969629837]
+[node name="QueueLabel" type="Label" parent="Container/MarginRight/RightPanel" unique_id=969629837]
 layout_mode = 2
 text = "NEXT"
 label_settings = SubResource("LabelSettings_efmwq")
+horizontal_alignment = 1
 
-[node name="Queue" type="VBoxContainer" parent="Container/RightPanel" unique_id=291334349]
+[node name="Queue" type="VBoxContainer" parent="Container/MarginRight/RightPanel" unique_id=291334349]
 layout_mode = 2
+theme_override_constants/separation = 8
 alignment = 1
 
-[node name="Control" type="Control" parent="Container/RightPanel/Queue" unique_id=718096440]
+[node name="Control" type="Control" parent="Container/MarginRight/RightPanel/Queue" unique_id=718096440]
 custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
 
-[node name="TileMapLayer" type="TileMapLayer" parent="Container/RightPanel/Queue/Control" unique_id=1748919848]
+[node name="TileMapLayer" type="TileMapLayer" parent="Container/MarginRight/RightPanel/Queue/Control" unique_id=1748919848]
 scale = Vector2(0.5, 0.5)
 tile_set = ExtResource("2_mfius")
 
-[node name="Control2" type="Control" parent="Container/RightPanel/Queue" unique_id=624694544]
+[node name="Control2" type="Control" parent="Container/MarginRight/RightPanel/Queue" unique_id=624694544]
 custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
 
-[node name="TileMapLayer" type="TileMapLayer" parent="Container/RightPanel/Queue/Control2" unique_id=772046922]
+[node name="TileMapLayer" type="TileMapLayer" parent="Container/MarginRight/RightPanel/Queue/Control2" unique_id=772046922]
 scale = Vector2(0.5, 0.5)
 tile_set = ExtResource("2_mfius")
 
-[node name="Control3" type="Control" parent="Container/RightPanel/Queue" unique_id=816271667]
+[node name="Control3" type="Control" parent="Container/MarginRight/RightPanel/Queue" unique_id=816271667]
 custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
 
-[node name="TileMapLayer" type="TileMapLayer" parent="Container/RightPanel/Queue/Control3" unique_id=1890592358]
+[node name="TileMapLayer" type="TileMapLayer" parent="Container/MarginRight/RightPanel/Queue/Control3" unique_id=1890592358]
 scale = Vector2(0.5, 0.5)
 tile_set = ExtResource("2_mfius")
 
-[node name="Control4" type="Control" parent="Container/RightPanel/Queue" unique_id=622064041]
+[node name="Control4" type="Control" parent="Container/MarginRight/RightPanel/Queue" unique_id=622064041]
 custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
 
-[node name="TileMapLayer" type="TileMapLayer" parent="Container/RightPanel/Queue/Control4" unique_id=1212821557]
+[node name="TileMapLayer" type="TileMapLayer" parent="Container/MarginRight/RightPanel/Queue/Control4" unique_id=1212821557]
 scale = Vector2(0.5, 0.5)
 tile_set = ExtResource("2_mfius")
 
-[node name="Control5" type="Control" parent="Container/RightPanel/Queue" unique_id=705904259]
+[node name="Control5" type="Control" parent="Container/MarginRight/RightPanel/Queue" unique_id=705904259]
 custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
 
-[node name="TileMapLayer" type="TileMapLayer" parent="Container/RightPanel/Queue/Control5" unique_id=833449488]
+[node name="TileMapLayer" type="TileMapLayer" parent="Container/MarginRight/RightPanel/Queue/Control5" unique_id=833449488]
 scale = Vector2(0.5, 0.5)
 tile_set = ExtResource("2_mfius")
 
-[node name="GameInfo" type="VBoxContainer" parent="Container/RightPanel" unique_id=1100881804]
+[node name="GameInfo" type="VBoxContainer" parent="Container/MarginRight/RightPanel" unique_id=1100881804]
 layout_mode = 2
+theme_override_constants/separation = 8
 
-[node name="ScoreLabel" type="Label" parent="Container/RightPanel/GameInfo" unique_id=1480944051]
+[node name="ScoreLabel" type="Label" parent="Container/MarginRight/RightPanel/GameInfo" unique_id=1480944051]
 layout_mode = 2
 text = "SCORE"
 label_settings = SubResource("LabelSettings_efmwq")
+horizontal_alignment = 1
 
-[node name="Score" type="Label" parent="Container/RightPanel/GameInfo" unique_id=241420941]
+[node name="Score" type="Label" parent="Container/MarginRight/RightPanel/GameInfo" unique_id=241420941]
 layout_mode = 2
 text = "-"
 label_settings = SubResource("LabelSettings_efmwq")
 
-[node name="LevelLabel" type="Label" parent="Container/RightPanel/GameInfo" unique_id=1336675803]
+[node name="LevelLabel" type="Label" parent="Container/MarginRight/RightPanel/GameInfo" unique_id=1336675803]
 layout_mode = 2
 text = "LEVEL"
 label_settings = SubResource("LabelSettings_efmwq")
+horizontal_alignment = 1
 
-[node name="Level" type="Label" parent="Container/RightPanel/GameInfo" unique_id=494556898]
+[node name="Level" type="Label" parent="Container/MarginRight/RightPanel/GameInfo" unique_id=494556898]
 layout_mode = 2
 text = "1"
 
-[node name="LinesLabel" type="Label" parent="Container/RightPanel/GameInfo" unique_id=1358173644]
+[node name="LinesLabel" type="Label" parent="Container/MarginRight/RightPanel/GameInfo" unique_id=1358173644]
 layout_mode = 2
 text = "LINES"
 label_settings = SubResource("LabelSettings_efmwq")
+horizontal_alignment = 1
 
-[node name="Lines" type="Label" parent="Container/RightPanel/GameInfo" unique_id=228027302]
+[node name="Lines" type="Label" parent="Container/MarginRight/RightPanel/GameInfo" unique_id=228027302]
 layout_mode = 2
 text = "-"

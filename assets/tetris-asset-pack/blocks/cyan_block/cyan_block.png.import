@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://d3hty2b0obl3b"
-path="res://.godot/imported/red_block.png-8194c70f6957aefbdb08a0b183f42796.ctex"
+uid="uid://cyfj752437obq"
+path="res://.godot/imported/cyan_block.png-5f03a6d32c0952c867b87373029e1ac7.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://sprites/blocks/red_block.png"
-dest_files=["res://.godot/imported/red_block.png-8194c70f6957aefbdb08a0b183f42796.ctex"]
+source_file="res://assets/tetris-asset-pack/blocks/cyan_block/cyan_block.png"
+dest_files=["res://.godot/imported/cyan_block.png-5f03a6d32c0952c867b87373029e1ac7.ctex"]
 
 [params]
 

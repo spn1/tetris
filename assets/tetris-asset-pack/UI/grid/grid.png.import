@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://gj3aj73kcucx"
-path="res://.godot/imported/yellow_block.png-b5eed310e4b75ae7646fabfeb4a8e1eb.ctex"
+uid="uid://v4p3hs0l75sr"
+path="res://.godot/imported/grid.png-5d7d45e7f2cdcfbdfd57e675eae90186.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://sprites/blocks/yellow_block.png"
-dest_files=["res://.godot/imported/yellow_block.png-b5eed310e4b75ae7646fabfeb4a8e1eb.ctex"]
+source_file="res://assets/tetris-asset-pack/UI/grid/grid.png"
+dest_files=["res://.godot/imported/grid.png-5d7d45e7f2cdcfbdfd57e675eae90186.ctex"]
 
 [params]
 

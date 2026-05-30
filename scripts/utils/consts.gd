@@ -2,7 +2,7 @@ extends Node
 
 const GRID_INCREMENT: int = 10
 const BOARD_COLUMNS: int = 10
-const BOARD_ROWS: int = 22 # 2 rows hidden at the top so pieces appear outside the board
+const BOARD_ROWS: int = 20# 22 # 2 rows hidden at the top so pieces appear outside the board
 const VISIBLE_ROWS: int = 20
 
 enum Piece { I = 0, O = 1, T = 2, S = 3, Z = 4, J = 5, L = 6 }
@@ -121,6 +121,19 @@ const PIECE_ATLAS_COORDS: Array[Vector2i] = [
 	Vector2i(2, 0), # Z green
 	Vector2i(0, 0), # J blue
 	Vector2i(3, 0), # L pink
+]
+
+### ==========================================
+# Offsets for piece queue rendering
+### ==========================================
+const PIECE_QUEUE_OFFSET: Array[Vector2i] = [
+	Vector2i(0, 0), # I red
+	Vector2i(16, 0), # O yellow
+	Vector2i(8, 0), # T cyan
+	Vector2i(8, 0), # S purple
+	Vector2i(8, 0), # Z green
+	Vector2i(8, 0), # J blue
+	Vector2i(8, 0), # L pink
 ]
 
 # DAS - Delayed Auto Shift - Short Delay before repeated movement from held-down input

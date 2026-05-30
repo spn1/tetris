@@ -1,31 +1,18 @@
 [gd_scene format=3 uid="uid://u1jkfaj7rxw0"]
 
 [ext_resource type="Script" uid="uid://55ca6vp7xgom" path="res://scripts/main.gd" id="1_tbgi4"]
-[ext_resource type="Shader" uid="uid://cb462pu80v22c" path="res://shader/grid.gdshader" id="3_jyhfs"]
 [ext_resource type="PackedScene" uid="uid://b5i7t1eytqicf" path="res://scenes/board.tscn" id="4_jyhfs"]
-[ext_resource type="Texture2D" uid="uid://ck5ilxhqdl14t" path="res://icon.svg" id="4_tbgi4"]
 [ext_resource type="PackedScene" uid="uid://ddymix77i3x3" path="res://scenes/gui.tscn" id="4_tefeu"]
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_tefeu"]
-shader = ExtResource("3_jyhfs")
-shader_parameter/line_width = 1.0
-shader_parameter/cell_size = 32.0
-shader_parameter/line_color = Color(0, 0, 0, 0.3)
-shader_parameter/grid_offset = Vector2(0, 0)
 
 [node name="Main" type="Node2D" unique_id=629815751 groups=["Block"]]
 script = ExtResource("1_tbgi4")
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=2101451099]
-position = Vector2(160, 384)
+anchor_mode = 0
 zoom = Vector2(0.9, 0.9)
 
 [node name="GUI" parent="." unique_id=758672245 instance=ExtResource("4_tefeu")]
+follow_viewport_enabled = true
 
 [node name="Board" parent="." unique_id=1495923322 instance=ExtResource("4_jyhfs")]
-
-[node name="Grid" type="Sprite2D" parent="Board" unique_id=1675357807]
-material = SubResource("ShaderMaterial_tefeu")
-position = Vector2(159.99998, 384)
-scale = Vector2(2.5156248, 4.9999995)
-texture = ExtResource("4_tbgi4")
+position = Vector2(416, 31)
