@@ -1,14 +1,14 @@
 [gd_scene format=4 uid="uid://b5i7t1eytqicf"]
 
-[ext_resource type="Script" uid="uid://dxbb6xsjg4l1v" path="res://scripts/grid.gd" id="1_hs2ul"]
+[ext_resource type="Script" uid="uid://dxbb6xsjg4l1v" path="res://scripts/field.gd" id="1_hs2ul"]
 [ext_resource type="TileSet" uid="uid://dq73g4sjony38" path="res://sprites/blocks/block_tile_set.tres" id="2_66b1s"]
+[ext_resource type="Texture2D" uid="uid://caq6vv8iw8wtq" path="res://sprites/tilemap_border.png" id="2_dun80"]
 [ext_resource type="Script" uid="uid://cdsqtwd4jyeb4" path="res://scripts/input.gd" id="3_nglv8"]
-[ext_resource type="Shader" uid="uid://cb462pu80v22c" path="res://shader/grid.gdshader" id="4_dxjtj"]
-[ext_resource type="Texture2D" uid="uid://v4p3hs0l75sr" path="res://assets/tetris-asset-pack/UI/grid/grid.png" id="5_dun80"]
-[ext_resource type="Texture2D" uid="uid://d00k3lur2woul" path="res://assets/tetris-asset-pack/UI/tilemap/tilemap_border.png" id="6_dun80"]
+[ext_resource type="Texture2D" uid="uid://ck5ilxhqdl14t" path="res://icon.svg" id="4_dun80"]
+[ext_resource type="Shader" uid="uid://cb462pu80v22c" path="res://shaders/grid.gdshader" id="4_dxjtj"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_c3r7o"]
-texture = ExtResource("6_dun80")
+texture = ExtResource("2_dun80")
 0:0/0 = 0
 1:0/0 = 0
 2:0/0 = 0
@@ -28,7 +28,7 @@ shader_parameter/cell_size = 32.0
 shader_parameter/line_color = Color(0, 0, 0, 0.3)
 shader_parameter/grid_offset = Vector2(0, 0)
 
-[node name="Board" type="Node2D" unique_id=1495923322]
+[node name="Field" type="Node2D" unique_id=1495923322]
 script = ExtResource("1_hs2ul")
 
 [node name="Border" type="TileMapLayer" parent="." unique_id=1129058206]
@@ -38,8 +38,8 @@ tile_set = SubResource("TileSet_wmvsh")
 
 [node name="Grid" type="Sprite2D" parent="." unique_id=1262109420]
 material = SubResource("ShaderMaterial_c3r7o")
-scale = Vector2(10.000001, 19.999998)
-texture = ExtResource("5_dun80")
+scale = Vector2(2.5234375, 5.015625)
+texture = ExtResource("4_dun80")
 centered = false
 
 [node name="LockedCells" type="TileMapLayer" parent="." unique_id=850869220]

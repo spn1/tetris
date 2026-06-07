@@ -1,4 +1,4 @@
-class_name Board
+class_name Field
 extends Node2D
 
 @onready var _locked_cells: TileMapLayer = $LockedCells
@@ -10,8 +10,8 @@ var _drop_acc: float = 0.0 # time since last gravity tick
 var _lock_acc: float = -1.0 # -1 = not in lock delay
 
 # The board (rows added later) - 0 if empty, 1-7 = piece
-# `grid` is a list of rows. I.e. grid[x][y]
-var grid: Array = []
+# `field` is a list of rows. I.e. field[x][y]
+var field: Array = []
 
 var active_piece: ActivePiece
 var next_queue: Array = []
@@ -35,7 +35,7 @@ signal game_over()
 
 
 func _ready() -> void:
-	_init_grid()
+	_init_field()
 	_refill_queue()
 	_spawn_next_piece()
 	level_changed.connect(_calculate_drop_interval)
@@ -53,11 +53,11 @@ func move_horizontal(delta: float, direction: int) -> void:
 	var valid_movement := is_valid_position(
 		active_piece.piece_type,
 		active_piece.rotation,
-		active_piece.grid_pos + Vector2i(direction, 0)
+		active_piece.field_pos + Vector2i(direction, 0)
 	)
 
 	if valid_movement:
-		active_piece.grid_pos.x += direction
+		active_piece.field_pos.x += direction
 		_lock_acc = 0
 
 
@@ -65,11 +65,11 @@ func soft_drop(delta: float) -> void:
 	var valid_position := is_valid_position(
 		active_piece.piece_type,
 		active_piece.rotation,
-		active_piece.grid_pos + Vector2i(0, 1)
+		active_piece.field_pos + Vector2i(0, 1)
 	)
 
 	if (valid_position):
-		active_piece.grid_pos += Vector2i(0, 1)
+		active_piece.field_pos += Vector2i(0, 1)
 		score += 1;
 		score_changed.emit(score)
 		_drop_acc = 0
@@ -77,15 +77,15 @@ func soft_drop(delta: float) -> void:
 
 func sonic_drop() -> void:
 	var lines_moved = 0
-	var new_pos = active_piece.grid_pos
+	var new_pos = active_piece.field_pos
 	while is_valid_position(active_piece.piece_type, active_piece.rotation, new_pos + Vector2i(0, 1)):
 		new_pos.y += 1
 		lines_moved += 1
 
-	if new_pos == active_piece.grid_pos:
+	if new_pos == active_piece.field_pos:
 		return
 
-	active_piece.grid_pos = new_pos
+	active_piece.field_pos = new_pos
 	score += lines_moved * 2
 	score_changed.emit(score)
 	_drop_acc = 0
@@ -95,7 +95,7 @@ func tick_gravity(delta: float) -> void:
 	var on_floor := not is_valid_position(
 		active_piece.piece_type,
 		active_piece.rotation,
-		active_piece.grid_pos + Vector2i(0,1)
+		active_piece.field_pos + Vector2i(0,1)
 	)
 
 	# Start timer to lock piece
@@ -114,7 +114,7 @@ func tick_gravity(delta: float) -> void:
 		_lock_acc = -1.
 		_drop_acc += delta
 		if _drop_acc >= _drop_interval:
-			active_piece.grid_pos += Vector2i(0, 1)
+			active_piece.field_pos += Vector2i(0, 1)
 			_drop_acc = 0
 
 # 1 for clockwise, -1 for counter clockwise
@@ -132,9 +132,9 @@ func try_rotate(direction: int) -> void:
 		if is_valid_position(
 			active_piece.piece_type,
 			new_rotation,
-			active_piece.grid_pos + kick
+			active_piece.field_pos + kick
 		):
-			active_piece.grid_pos += kick
+			active_piece.field_pos += kick
 			active_piece.rotation = new_rotation
 			_lock_acc = -1
 			return
@@ -153,7 +153,7 @@ func _redraw_locked() -> void:
 	_locked_cells.clear()
 	for row in range(Constants.BOARD_ROWS):
 		for col in range(Constants.BOARD_COLUMNS):
-			var colour = grid[row][col]
+			var colour = field[row][col]
 			if colour != 0:
 				var atlas := Constants.PIECE_ATLAS_COORDS[colour - 1]
 				_locked_cells.set_cell(Vector2i(col, row), 0, atlas)
@@ -172,11 +172,11 @@ func _redraw_ghost() -> void:
 	if active_piece == null:
 		return
 
-	var ghost_pos = active_piece.grid_pos
+	var ghost_pos = active_piece.field_pos
 	while is_valid_position(active_piece.piece_type, active_piece.rotation, ghost_pos + Vector2i(0, 1)):
 		ghost_pos.y += 1
 
-	if ghost_pos == active_piece.grid_pos:
+	if ghost_pos == active_piece.field_pos:
 		return
 
 	var atlas = Constants.PIECE_ATLAS_COORDS[active_piece.piece_type]
@@ -186,15 +186,15 @@ func _redraw_ghost() -> void:
 			_ghost_tiles.set_cell(cell, 0, atlas)
 
 ### ===========================================
-# Grid Logic
+# field Logic
 ### ===========================================
-func _init_grid() -> void:
-	grid = []
+func _init_field() -> void:
+	field = []
 	for _r in range(Constants.BOARD_ROWS):
 		var row: Array[int] = []
 		row.resize(Constants.BOARD_COLUMNS)
 		row.fill(0)
-		grid.append(row)
+		field.append(row)
 
 
 # Checks if the placement of the specified piece at the given
@@ -210,7 +210,7 @@ func is_valid_position(
 			return false
 		if cell.y >= Constants.BOARD_ROWS:
 			return false
-		if cell.y >= 0 and grid[cell.y][cell.x] != 0:
+		if cell.y >= 0 and field[cell.y][cell.x] != 0:
 			return false
 	return true
 
@@ -230,17 +230,17 @@ func clear_lines() -> int:
 
 func _is_row_full(row: int) -> bool:
 	for col in range(Constants.BOARD_COLUMNS):
-		if grid[row][col] == 0:
+		if field[row][col] == 0:
 			return false
 	return true
 
 
 func _remove_row(row: int) -> void:
-	grid.remove_at(row)
+	field.remove_at(row)
 	var empty_row: Array[int] = []
 	empty_row.resize(Constants.BOARD_COLUMNS)
 	empty_row.fill(0)
-	grid.insert(0, empty_row)
+	field.insert(0, empty_row)
 
 
 func calculate_line_score(cleared: int) -> int:
@@ -297,7 +297,7 @@ func _spawn_next_piece() -> void:
 	var type = _draw_from_queue()
 	active_piece = PieceFactory.spawn_piece(type)
 	hold_used = false
-	if not is_valid_position(active_piece.piece_type, active_piece.rotation, active_piece.grid_pos):
+	if not is_valid_position(active_piece.piece_type, active_piece.rotation, active_piece.field_pos):
 		game_over.emit()
 
 ### ===========================================
@@ -306,12 +306,13 @@ func _spawn_next_piece() -> void:
 
 # Locks the active piece after landing
 func lock_active_piece() -> void:
+	print("LOCKING PIECE ==================")
 	for cell: Vector2i in active_piece.world_cells():
 		if cell.y >= 0:
-			grid[cell.y][cell.x] = active_piece.piece_type + 1
-		var cleared := clear_lines()
-		_apply_line_clear(cleared)
+			field[cell.y][cell.x] = active_piece.piece_type + 1
 
+	var cleared := clear_lines()
+	_apply_line_clear(cleared)
 	_spawn_next_piece()
 
 
@@ -336,7 +337,7 @@ func do_hold() -> void:
 ### ===========================================
 # Debug Logic
 ### ===========================================
-func _log_grid() -> void:
+func _log_field() -> void:
 	print("================================")
-	for row in grid:
+	for row in field:
 		print(row)

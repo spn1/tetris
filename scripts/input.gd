@@ -1,6 +1,6 @@
 extends Node
 
-@onready var _board: Board = get_parent()
+@onready var _field: Field = get_parent()
 
 var _arr_acc: float = 0 # input action repeat accumulator
 var _das_acc: float = 0 # repeat input delay accumulator
@@ -30,39 +30,39 @@ func _process(delta) -> void:
 
 func move_left(delta: float):
 	if _das_acc == 0:
-		_board.move_horizontal(delta, -1)
+		_field.move_horizontal(delta, -1)
 
 	_arr_acc += delta
 	_das_acc += delta
 
 	# If over DAS & ARR rates
 	if _das_acc >= Constants.DAS_DELAY and _arr_acc >= Constants.ARR_RATE:
-		_board.move_horizontal(delta, -1)
+		_field.move_horizontal(delta, -1)
 		_arr_acc = 0
 
 func move_right(delta: float):
 	if _das_acc == 0:
-		_board.move_horizontal(delta, 1)
+		_field.move_horizontal(delta, 1)
 
 	_arr_acc += delta
 	_das_acc += delta
 
 	# If over DAS & ARR rates
 	if _das_acc >= Constants.DAS_DELAY and _arr_acc >= Constants.ARR_RATE:
-		_board.move_horizontal(delta, 1)
+		_field.move_horizontal(delta, 1)
 		_arr_acc = 0
 
 func soft_drop(delta: float):
-	_board.soft_drop(delta)
+	_field.soft_drop(delta)
 
 func sonic_drop():
-	_board.sonic_drop()
+	_field.sonic_drop()
 
 func rotate_left():
-	_board.try_rotate(-1)
+	_field.try_rotate(-1)
 
 func rotate_right():
-	_board.try_rotate(1)
+	_field.try_rotate(1)
 
 func store_swap():
-	_board.do_hold()
+	_field.do_hold()

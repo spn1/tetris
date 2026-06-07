@@ -12,7 +12,7 @@ extends CanvasLayer
 	$Container/MarginRight/RightPanel/Queue/Control5/TileMapLayer,
 ]
 
-@onready var hold_piece = $Container/MarginLeft/LeftPanel/HoldPiece/TileMapLayer
+@onready var hold_piece = $Container/MarginLeft/LeftPanel/Hold/HoldPiece/TileMapLayer
 
 
 ### ===============================

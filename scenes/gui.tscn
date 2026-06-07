@@ -28,18 +28,24 @@ custom_minimum_size = Vector2(64, 400)
 layout_mode = 2
 size_flags_vertical = 4
 
-[node name="HoldLabel" type="Label" parent="Container/MarginLeft/LeftPanel" unique_id=241823470]
+[node name="Hold" type="VBoxContainer" parent="Container/MarginLeft/LeftPanel" unique_id=1399457661]
+layout_mode = 2
+
+[node name="HoldLabel" type="Label" parent="Container/MarginLeft/LeftPanel/Hold" unique_id=241823470]
 layout_mode = 2
 text = "HOLD"
 horizontal_alignment = 1
 
-[node name="HoldPiece" type="Control" parent="Container/MarginLeft/LeftPanel" unique_id=1926148958]
+[node name="HoldPiece" type="Control" parent="Container/MarginLeft/LeftPanel/Hold" unique_id=1926148958]
 custom_minimum_size = Vector2(0, 32)
 layout_mode = 2
 
-[node name="TileMapLayer" type="TileMapLayer" parent="Container/MarginLeft/LeftPanel/HoldPiece" unique_id=1665980259]
+[node name="TileMapLayer" type="TileMapLayer" parent="Container/MarginLeft/LeftPanel/Hold/HoldPiece" unique_id=1665980259]
 scale = Vector2(0.5, 0.5)
 tile_set = ExtResource("2_mfius")
+
+[node name="Minos" type="VBoxContainer" parent="Container/MarginLeft/LeftPanel" unique_id=363825136]
+layout_mode = 2
 
 [node name="GridSpacer" type="Control" parent="Container" unique_id=1321417059]
 custom_minimum_size = Vector2(360, 0)

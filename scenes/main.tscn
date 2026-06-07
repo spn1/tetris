@@ -2,17 +2,52 @@
 
 [ext_resource type="Script" uid="uid://55ca6vp7xgom" path="res://scripts/main.gd" id="1_tbgi4"]
 [ext_resource type="PackedScene" uid="uid://b5i7t1eytqicf" path="res://scenes/board.tscn" id="4_jyhfs"]
+[ext_resource type="Script" uid="uid://c8a8ulhob6ktt" path="res://scripts/audio_manager.gd" id="4_o6xl0"]
 [ext_resource type="PackedScene" uid="uid://ddymix77i3x3" path="res://scenes/gui.tscn" id="4_tefeu"]
+[ext_resource type="AudioStream" uid="uid://cgucn43tfvjif" path="res://audio/temp/sfx/KIE01.wav" id="4_tipki"]
+[ext_resource type="AudioStream" uid="uid://d1v7if0j6g2wa" path="res://audio/temp/bgm/04. Lv1.mp3" id="5_o6xl0"]
+[ext_resource type="AudioStream" uid="uid://6a7brkrf2gmc" path="res://audio/temp/sfx/KIE02.wav" id="6_o6xl0"]
+[ext_resource type="AudioStream" uid="uid://7b4wf5ki0o7y" path="res://audio/temp/sfx/OCHI01.wav" id="7_tipki"]
 
 [node name="Main" type="Node2D" unique_id=629815751 groups=["Block"]]
 script = ExtResource("1_tbgi4")
+
+[node name="AudioManager" type="Node" parent="." unique_id=2140395216 node_paths=PackedStringArray("field")]
+script = ExtResource("4_o6xl0")
+field = NodePath("../Field")
+
+[node name="BGM" type="AudioStreamPlayer2D" parent="AudioManager" unique_id=1846043190]
+stream = ExtResource("5_o6xl0")
+volume_db = -6.0
+autoplay = true
+
+[node name="SFXLineClear" type="AudioStreamPlayer2D" parent="AudioManager" unique_id=227622052]
+stream = ExtResource("4_tipki")
+
+[node name="SFXStackDrop" type="AudioStreamPlayer2D" parent="AudioManager" unique_id=107415322]
+stream = ExtResource("7_tipki")
+
+[node name="SFXTetris" type="AudioStreamPlayer2D" parent="AudioManager" unique_id=2018282403]
+stream = ExtResource("6_o6xl0")
+
+[node name="SFXLock" type="AudioStreamPlayer2D" parent="AudioManager" unique_id=1598023005]
+
+[node name="SFXRotate" type="AudioStreamPlayer2D" parent="AudioManager" unique_id=752556689]
+
+[node name="SFXHold" type="AudioStreamPlayer2D" parent="AudioManager" unique_id=451191660]
+
+[node name="SFXLevelUp" type="AudioStreamPlayer2D" parent="AudioManager" unique_id=2134745594]
+
+[node name="SFXGameOver" type="AudioStreamPlayer2D" parent="AudioManager" unique_id=937076763]
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=2101451099]
 anchor_mode = 0
 zoom = Vector2(0.9, 0.9)
 
+[node name="Field" parent="." unique_id=1495923322 instance=ExtResource("4_jyhfs")]
+position = Vector2(416, 31)
+
 [node name="GUI" parent="." unique_id=758672245 instance=ExtResource("4_tefeu")]
 follow_viewport_enabled = true
 
-[node name="Board" parent="." unique_id=1495923322 instance=ExtResource("4_jyhfs")]
-position = Vector2(416, 31)
+[connection signal="lines_cleared" from="Field" to="AudioManager" method="_on_board_lines_cleared"]
