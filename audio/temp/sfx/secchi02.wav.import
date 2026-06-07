@@ -2,13 +2,13 @@
 
 importer="wav"
 type="AudioStreamWAV"
-uid="uid://bs3ur6omdxen4"
-path="res://.godot/imported/SEB_fall.wav-ad1bd275cfa5009da8cca24193a6b0ee.sample"
+uid="uid://ctxh5oa45rk0g"
+path="res://.godot/imported/secchi02.wav-4e89ea5a444181b5d4b72f8c7e819602.sample"
 
 [deps]
 
-source_file="res://audio/temp/sfx/SEB_fall.wav"
-dest_files=["res://.godot/imported/SEB_fall.wav-ad1bd275cfa5009da8cca24193a6b0ee.sample"]
+source_file="res://audio/temp/sfx/secchi02.wav"
+dest_files=["res://.godot/imported/secchi02.wav-4e89ea5a444181b5d4b72f8c7e819602.sample"]
 
 [params]
 

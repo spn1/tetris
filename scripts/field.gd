@@ -31,6 +31,8 @@ signal level_changed(new_level: int)
 signal lines_cleared(count: int)
 signal queue_changed(queue: Array)
 signal hold_changed(hold_piece: int)
+signal piece_drop()
+signal piece_lock()
 signal game_over()
 
 
@@ -102,6 +104,7 @@ func tick_gravity(delta: float) -> void:
 	if on_floor:
 		if _lock_acc == -1:
 			_lock_acc = 0
+			piece_drop.emit()
 
 		_lock_acc += delta
 		if _lock_acc >= Constants.LOCK_DELAY:
@@ -272,7 +275,6 @@ func _apply_line_clear(cleared: int) -> void:
 # Calculate drop interval based on current level
 func _calculate_drop_interval(level: int):
 	_drop_interval = pow(0.8 - (level - 1) * 0.007, level - 1)
-	print("Interval: ", _drop_interval)
 
 ### ===========================================
 # Queue Logic
@@ -306,7 +308,7 @@ func _spawn_next_piece() -> void:
 
 # Locks the active piece after landing
 func lock_active_piece() -> void:
-	print("LOCKING PIECE ==================")
+	piece_lock.emit()
 	for cell: Vector2i in active_piece.world_cells():
 		if cell.y >= 0:
 			field[cell.y][cell.x] = active_piece.piece_type + 1

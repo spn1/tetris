@@ -7,7 +7,9 @@
 [ext_resource type="AudioStream" uid="uid://cgucn43tfvjif" path="res://audio/temp/sfx/KIE01.wav" id="4_tipki"]
 [ext_resource type="AudioStream" uid="uid://d1v7if0j6g2wa" path="res://audio/temp/bgm/04. Lv1.mp3" id="5_o6xl0"]
 [ext_resource type="AudioStream" uid="uid://6a7brkrf2gmc" path="res://audio/temp/sfx/KIE02.wav" id="6_o6xl0"]
+[ext_resource type="AudioStream" uid="uid://dvnhkn84gw3o5" path="res://audio/temp/sfx/secchi01.wav" id="7_choun"]
 [ext_resource type="AudioStream" uid="uid://7b4wf5ki0o7y" path="res://audio/temp/sfx/OCHI01.wav" id="7_tipki"]
+[ext_resource type="AudioStream" uid="uid://ctxh5oa45rk0g" path="res://audio/temp/sfx/secchi02.wav" id="8_ya4ey"]
 
 [node name="Main" type="Node2D" unique_id=629815751 groups=["Block"]]
 script = ExtResource("1_tbgi4")
@@ -18,7 +20,6 @@ field = NodePath("../Field")
 
 [node name="BGM" type="AudioStreamPlayer2D" parent="AudioManager" unique_id=1846043190]
 stream = ExtResource("5_o6xl0")
-volume_db = -6.0
 autoplay = true
 
 [node name="SFXLineClear" type="AudioStreamPlayer2D" parent="AudioManager" unique_id=227622052]
@@ -30,7 +31,11 @@ stream = ExtResource("7_tipki")
 [node name="SFXTetris" type="AudioStreamPlayer2D" parent="AudioManager" unique_id=2018282403]
 stream = ExtResource("6_o6xl0")
 
-[node name="SFXLock" type="AudioStreamPlayer2D" parent="AudioManager" unique_id=1598023005]
+[node name="SFXPieceLock" type="AudioStreamPlayer2D" parent="AudioManager" unique_id=1598023005]
+stream = ExtResource("7_choun")
+
+[node name="SFXPieceDrop" type="AudioStreamPlayer2D" parent="AudioManager" unique_id=283677151]
+stream = ExtResource("8_ya4ey")
 
 [node name="SFXRotate" type="AudioStreamPlayer2D" parent="AudioManager" unique_id=752556689]
 

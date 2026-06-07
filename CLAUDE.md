@@ -10,28 +10,28 @@ Open the project in Godot 4.6 and press F5 (or use the Run button). There is no 
 
 This is a Godot 4.6 Tetris clone. The scene tree is:
 
-- **`scenes/main.tscn`** (`scripts/main.gd`) — Root node. Connects Board signals to GUI on ready, then calls `sync_ui()` to push initial state.
-- **`scenes/board.tscn`** (`scripts/grid.gd`, class `Board`) — Core game logic: gravity, locking, line clears, scoring, hold, and the piece queue. Uses three `TileMapLayer` children (`LockedCells`, `ActivePieceTiles`, `GhostTiles`) for rendering.
-- **`scenes/gui.tscn`** (`scripts/gui.gd`) — HUD rendered as a `CanvasLayer`. Receives signals from Board and redraws score/level/lines/queue/hold displays.
+- **`scenes/main.tscn`** (`scripts/main.gd`) — Root node. Connects Field signals to GUI on ready, then calls `sync_ui()` to push initial state.
+- **`scenes/board.tscn`** (`scripts/field.gd`, class `Field`) — Core game logic: gravity, locking, line clears, scoring, hold, and the piece queue. Uses three `TileMapLayer` children (`LockedCells`, `ActivePieceTiles`, `GhostTiles`) for rendering.
+- **`scenes/gui.tscn`** (`scripts/gui.gd`) — HUD rendered as a `CanvasLayer`. Receives signals from Field and redraws score/level/lines/queue/hold displays.
 
 ### Key Scripts
 
 | File | Class | Purpose |
 |------|-------|---------|
-| `scripts/grid.gd` | `Board` | All game state: grid array, active piece, queue, hold, scoring |
+| `scripts/field.gd` | `Field` | All game state: field array, active piece, queue, hold, scoring |
 | `scripts/active_piece.gd` | `ActivePiece` | Lightweight piece state (type, rotation, grid_pos); computes world cells |
-| `scripts/input.gd` | — | Child of Board; translates input actions to Board method calls with DAS/ARR handling |
+| `scripts/input.gd` | — | Child of Field; translates input actions to Field method calls with DAS/ARR handling |
 | `scripts/utils/consts.gd` | `Constants` | Autoloaded singleton with piece shapes, wall kick tables, atlas coords, timing constants |
 | `scripts/utils/piece_factory.gd` | `PieceFactory` | Spawns pieces at the correct column; generates 7-bag shuffles |
 
 ### Data Model
 
-- `grid` on `Board` is `grid[row][col]` — row 0 is the top. Value 0 = empty; 1–7 = piece color index.
+- `field` on `Field` is `field[row][col]` — row 0 is the top. Value 0 = empty; 1–7 = piece color index.
 - Piece shapes in `Constants.PIECES` use local offsets from a bounding-box origin, indexed `[Piece][Rotation]`.
 - Wall kicks are separate tables for I-piece (`WALL_KICKS_I`) vs all others (`WALL_KICKS_JLSTZ`), keyed by `from_rotation → to_rotation`.
 - The next-piece queue always holds 5 pieces drawn from a 7-bag (`_bag`). When the queue drops below 5, a new bag is generated.
 
-### Signals (Board → GUI)
+### Signals (Field → GUI)
 
 `score_changed`, `level_changed`, `lines_cleared`, `queue_changed`, `hold_changed`, `game_over`
 
