@@ -19,6 +19,10 @@ boot_splash/bg_color=Color(0.09411765, 0.105882354, 0.11372549, 1)
 
 Constants="*uid://ckag07ttck1hx"
 
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/gdscript-linter/plugin.cfg", "res://addons/script-ide/plugin.cfg")
+
 [input]
 
 rotate_left={
