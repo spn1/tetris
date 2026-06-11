@@ -5,9 +5,14 @@ extends Node2D
 @onready var _active_tiles: TileMapLayer = $ActivePieceTiles
 @onready var _ghost_tiles: TileMapLayer = $GhostTiles
 
-var _drop_interval: float = 1
+# Interval between each natural drop - recalculated after line clears
+var _drop_interval: float = 1 
+# Interval between line clear and stack drop
+var _clear_drop_interval: float = 0.4
+
 var _drop_acc: float = 0.0 # time since last gravity tick
 var _lock_acc: float = -1.0 # -1 = not in lock delay
+var _clear_drop_acc: float = -1.0
 
 # The board (rows added later) - 0 if empty, 1-7 = piece
 # `field` is a list of rows. I.e. field[x][y]
@@ -16,6 +21,7 @@ var field: Array = []
 var active_piece: ActivePiece
 var next_queue: Array = []
 var _bag: Array = []
+var _lines_to_clear: Array = []
 
 var hold_piece: int = -1 #  empty if -1
 var hold_used: bool = false
@@ -43,15 +49,28 @@ func _ready() -> void:
 	level_changed.connect(_calculate_drop_interval)
 
 func _process(delta: float) -> void:
-	if active_piece == null:
-		return
-	tick_gravity(delta)
+	if active_piece != null:
+		tick_gravity(delta)
+	
+	tick_field(delta)
 	_redraw()
+
+func tick_field(delta: float) -> void:
+	# Wait for stack to drop after line clear
+	if _clear_drop_acc >= _clear_drop_interval:
+		_remove_cleared_rows()
+		_clear_drop_acc = -1
+		_spawn_next_piece()
+	elif _clear_drop_acc >= 0:
+		_clear_drop_acc += delta
 
 ### ===========================================
 # Moving Pieces
 ### ===========================================
 func move_horizontal(delta: float, direction: int) -> void:
+	if active_piece == null:
+		return
+	
 	var valid_movement := is_valid_position(
 		active_piece.piece_type,
 		active_piece.rotation,
@@ -64,6 +83,9 @@ func move_horizontal(delta: float, direction: int) -> void:
 
 
 func soft_drop(delta: float) -> void:
+	if active_piece == null:
+		return
+	
 	var valid_position := is_valid_position(
 		active_piece.piece_type,
 		active_piece.rotation,
@@ -78,6 +100,9 @@ func soft_drop(delta: float) -> void:
 
 
 func sonic_drop() -> void:
+	if active_piece == null:
+		return
+	
 	var lines_moved = 0
 	var new_pos = active_piece.field_pos
 	while is_valid_position(active_piece.piece_type, active_piece.rotation, new_pos + Vector2i(0, 1)):
@@ -102,11 +127,13 @@ func tick_gravity(delta: float) -> void:
 
 	# Start timer to lock piece
 	if on_floor:
+		# Begin lock timer
 		if _lock_acc == -1:
-			_lock_acc = 0
 			piece_drop.emit()
+			_lock_acc = 0
 
 		_lock_acc += delta
+		# Lock Piece
 		if _lock_acc >= Constants.LOCK_DELAY:
 			lock_active_piece()
 			_lock_acc = -1
@@ -141,7 +168,6 @@ func try_rotate(direction: int) -> void:
 			active_piece.rotation = new_rotation
 			_lock_acc = -1
 			return
-
 
 
 ### ===========================================
@@ -199,7 +225,6 @@ func _init_field() -> void:
 		row.fill(0)
 		field.append(row)
 
-
 # Checks if the placement of the specified piece at the given
 # rotation and position is a valid position
 func is_valid_position(
@@ -217,17 +242,16 @@ func is_valid_position(
 			return false
 	return true
 
-
 func clear_lines() -> int:
 	var cleared := 0
 	var row = Constants.BOARD_ROWS - 1
 	# Iterate through rows from the bottom
 	while row >= 0:
 		if _is_row_full(row):
-			_remove_row(row)
+			_clear_row(row)
+			_lines_to_clear.append(row)
 			cleared += 1
-		else:
-			row -= 1
+		row -= 1
 	return cleared
 
 
@@ -238,13 +262,29 @@ func _is_row_full(row: int) -> bool:
 	return true
 
 
-func _remove_row(row: int) -> void:
+# Empty rows that are full (to be removed later)
+func _clear_row(row: int) -> void:
 	field.remove_at(row)
+	_insert_empty_row_at(row)
+
+
+# Removes the row at the given index and adds an empty row to the top of the
+# stack.
+func _remove_cleared_rows() -> void:
+	for row in _lines_to_clear:
+		print("Removing Row at: ", row)
+		field.remove_at(row)
+		
+	for i in range(_lines_to_clear.size()):
+		_insert_empty_row_at(0)
+	
+	_lines_to_clear = []
+
+func _insert_empty_row_at(row: int) -> void:
 	var empty_row: Array[int] = []
 	empty_row.resize(Constants.BOARD_COLUMNS)
 	empty_row.fill(0)
-	field.insert(0, empty_row)
-
+	field.insert(row, empty_row)
 
 func calculate_line_score(cleared: int) -> int:
 	const BASE: Array[int] = [0, 100, 300, 500, 800]
@@ -256,9 +296,7 @@ func calculate_line_score(cleared: int) -> int:
 	return pts
 
 
-func _apply_line_clear(cleared: int) -> void:
-	if cleared == 0:
-		return
+func _update_after_line_clear(cleared: int) -> void:
 	score += calculate_line_score(cleared)
 	_back_to_back = (cleared == 4)
 	lines += cleared
@@ -270,6 +308,9 @@ func _apply_line_clear(cleared: int) -> void:
 
 	score_changed.emit(score)
 	lines_cleared.emit(cleared)
+	
+	# Start clear_drop timer
+	_clear_drop_acc = 0
 
 
 # Calculate drop interval based on current level
@@ -314,14 +355,18 @@ func lock_active_piece() -> void:
 			field[cell.y][cell.x] = active_piece.piece_type + 1
 
 	var cleared := clear_lines()
-	_apply_line_clear(cleared)
-	_spawn_next_piece()
+	
+	if cleared != 0:
+		_update_after_line_clear(cleared)
+		active_piece = null
+	else:
+		_spawn_next_piece()
 
 
 # Hold Piece
 func do_hold() -> void:
 	# Cant hold more than once per spawn
-	if hold_used:
+	if hold_used or active_piece == null:
 		return
 	
 	# No hold piece set (first hold of game)

@@ -10,6 +10,7 @@
 [ext_resource type="AudioStream" uid="uid://dvnhkn84gw3o5" path="res://audio/temp/sfx/secchi01.wav" id="7_choun"]
 [ext_resource type="AudioStream" uid="uid://7b4wf5ki0o7y" path="res://audio/temp/sfx/OCHI01.wav" id="7_tipki"]
 [ext_resource type="AudioStream" uid="uid://ctxh5oa45rk0g" path="res://audio/temp/sfx/secchi02.wav" id="8_ya4ey"]
+[ext_resource type="AudioStream" uid="uid://cmnadm72m55e6" path="res://audio/temp/sfx/ITEM01.wav" id="9_ya4ey"]
 
 [node name="Main" type="Node2D" unique_id=629815751 groups=["Block"]]
 script = ExtResource("1_tbgi4")
@@ -21,29 +22,40 @@ field = NodePath("../Field")
 [node name="BGM" type="AudioStreamPlayer2D" parent="AudioManager" unique_id=1846043190]
 stream = ExtResource("5_o6xl0")
 autoplay = true
+bus = &"BGM"
 
 [node name="SFXLineClear" type="AudioStreamPlayer2D" parent="AudioManager" unique_id=227622052]
 stream = ExtResource("4_tipki")
+bus = &"SFX"
 
 [node name="SFXStackDrop" type="AudioStreamPlayer2D" parent="AudioManager" unique_id=107415322]
 stream = ExtResource("7_tipki")
+bus = &"SFX"
 
 [node name="SFXTetris" type="AudioStreamPlayer2D" parent="AudioManager" unique_id=2018282403]
 stream = ExtResource("6_o6xl0")
+bus = &"SFX"
 
 [node name="SFXPieceLock" type="AudioStreamPlayer2D" parent="AudioManager" unique_id=1598023005]
 stream = ExtResource("7_choun")
+bus = &"SFX"
 
 [node name="SFXPieceDrop" type="AudioStreamPlayer2D" parent="AudioManager" unique_id=283677151]
 stream = ExtResource("8_ya4ey")
+bus = &"SFX"
 
 [node name="SFXRotate" type="AudioStreamPlayer2D" parent="AudioManager" unique_id=752556689]
+bus = &"SFX"
 
 [node name="SFXHold" type="AudioStreamPlayer2D" parent="AudioManager" unique_id=451191660]
+stream = ExtResource("9_ya4ey")
+bus = &"SFX"
 
 [node name="SFXLevelUp" type="AudioStreamPlayer2D" parent="AudioManager" unique_id=2134745594]
+bus = &"SFX"
 
 [node name="SFXGameOver" type="AudioStreamPlayer2D" parent="AudioManager" unique_id=937076763]
+bus = &"SFX"
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=2101451099]
 anchor_mode = 0
