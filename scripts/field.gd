@@ -35,6 +35,7 @@ var _back_to_back: bool = false # Was last clear a tetris?
 signal score_changed(new_score: int)
 signal level_changed(new_level: int)
 signal lines_cleared(count: int)
+signal stack_drop()
 signal queue_changed(queue: Array)
 signal hold_changed(hold_piece: int)
 signal piece_drop()
@@ -59,6 +60,7 @@ func tick_field(delta: float) -> void:
 	# Wait for stack to drop after line clear
 	if _clear_drop_acc >= _clear_drop_interval:
 		_remove_cleared_rows()
+		stack_drop.emit()
 		_clear_drop_acc = -1
 		_spawn_next_piece()
 	elif _clear_drop_acc >= 0:
