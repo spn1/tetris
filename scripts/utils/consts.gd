@@ -2,7 +2,7 @@ extends Node
 
 const GRID_INCREMENT: int = 10
 const BOARD_COLUMNS: int = 10
-const BOARD_ROWS: int = 20# 22 # 2 rows hidden at the top so pieces appear outside the board
+const BOARD_ROWS: int = 20
 const VISIBLE_ROWS: int = 20
 
 enum Piece { I = 0, O = 1, T = 2, S = 3, Z = 4, J = 5, L = 6 }

@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://u1jkfaj7rxw0"]
 
 [ext_resource type="Script" uid="uid://55ca6vp7xgom" path="res://scripts/main.gd" id="1_tbgi4"]
-[ext_resource type="PackedScene" uid="uid://b5i7t1eytqicf" path="res://scenes/board.tscn" id="4_jyhfs"]
+[ext_resource type="PackedScene" uid="uid://b5i7t1eytqicf" path="res://scenes/field.tscn" id="4_jyhfs"]
 [ext_resource type="Script" uid="uid://c8a8ulhob6ktt" path="res://scripts/audio_manager.gd" id="4_o6xl0"]
 [ext_resource type="PackedScene" uid="uid://ddymix77i3x3" path="res://scenes/gui.tscn" id="4_tefeu"]
 [ext_resource type="AudioStream" uid="uid://cgucn43tfvjif" path="res://audio/temp/sfx/KIE01.wav" id="4_tipki"]
@@ -11,6 +11,21 @@
 [ext_resource type="AudioStream" uid="uid://7b4wf5ki0o7y" path="res://audio/temp/sfx/OCHI01.wav" id="7_tipki"]
 [ext_resource type="AudioStream" uid="uid://ctxh5oa45rk0g" path="res://audio/temp/sfx/secchi02.wav" id="8_ya4ey"]
 [ext_resource type="AudioStream" uid="uid://cmnadm72m55e6" path="res://audio/temp/sfx/ITEM01.wav" id="9_ya4ey"]
+[ext_resource type="Shader" uid="uid://buammvti7ktrn" path="res://shaders/balatro.gdshader" id="12_trceg"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_trceg"]
+shader = ExtResource("12_trceg")
+shader_parameter/spin_rotation_speed = 2.0
+shader_parameter/move_speed = 7.0
+shader_parameter/offset = Vector2(0, 0)
+shader_parameter/colour_1 = Color(0.871, 0.267, 0.231, 1)
+shader_parameter/colour_2 = Color(0, 0.42, 0.706, 1)
+shader_parameter/colour_3 = Color(0.086, 0.137, 0.145, 1)
+shader_parameter/contrast = 3.5
+shader_parameter/lighting = 0.3
+shader_parameter/spin_amount = 0.25
+shader_parameter/pixel_filter = 740.0
+shader_parameter/is_rotating = false
 
 [node name="Main" type="Node2D" unique_id=629815751 groups=["Block"]]
 script = ExtResource("1_tbgi4")
@@ -21,6 +36,7 @@ field = NodePath("../Field")
 
 [node name="BGM" type="AudioStreamPlayer2D" parent="AudioManager" unique_id=1846043190]
 stream = ExtResource("5_o6xl0")
+volume_db = -20.0
 autoplay = true
 bus = &"BGM"
 
@@ -66,5 +82,26 @@ position = Vector2(416, 31)
 
 [node name="GUI" parent="." unique_id=758672245 instance=ExtResource("4_tefeu")]
 follow_viewport_enabled = true
+
+[node name="Control" type="Control" parent="." unique_id=306483776]
+clip_contents = true
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = 1280.0
+offset_bottom = 720.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Background" type="ColorRect" parent="Control" unique_id=2033761288]
+z_index = -10
+material = SubResource("ShaderMaterial_trceg")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 
 [connection signal="lines_cleared" from="Field" to="AudioManager" method="_on_board_lines_cleared"]
